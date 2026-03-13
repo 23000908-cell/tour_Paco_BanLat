@@ -189,6 +189,26 @@
     startAutorotate();
     updateSceneName(scene);
     updateSceneList(scene);
+
+    // ĐOẠN MÃ THÊM MỚI TỪ ĐÂY:
+    var view = scene.view;
+    var updateUrl = function() {
+      var params = [
+        scene.data.id,
+        view.yaw(),
+        view.pitch(),
+        view.fov()
+      ];
+      var url = '?view=' + params.join('-');
+      window.history.replaceState(null, null, url);
+    };
+
+    // Cập nhật link ngay khi chuyển cảnh
+    updateUrl();
+
+    // Cập nhật link liên tục khi xoay ảnh
+    view.addEventListener('change', updateUrl);
+    // HẾT ĐOẠN MÃ THÊM MỚI
   }
 
   function updateSceneName(scene) {
